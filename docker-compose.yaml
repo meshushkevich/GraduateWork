@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  collector:
+    # todo
+  alarm:
+    # todo
+  core:
+    # todo
+  database:
+    # todo: pgsql
+  cache:
+    # todo: redis
+  prediction:
+    # todo: prediction
