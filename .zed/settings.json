@@ -1,0 +1,9 @@
+{
+  "language_servers": [
+    "ruff",
+    "ty",
+    "docker-compose",
+    "json-language-server",
+    "yaml-language-server"
+  ]
+}
