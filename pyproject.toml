@@ -15,4 +15,8 @@ dev = [
 [tool.uv.workspace]
 members = [
     "api",
+    "collector",
+    "core",
+    "predictor",
+    "sensors",
 ]

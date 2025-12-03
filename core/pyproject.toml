@@ -1,7 +1,13 @@
 [project]
 name = "core"
 version = "0.1.0"
-description = ""
+description = "Core API for communication between system components"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi>=0.123.5",
+    "uvicorn>=0.38.0",
+    "pydantic>=2.0.0",
+    "python-multipart>=0.0.6",
+    "python-dotenv>=1.0.0",
+]
