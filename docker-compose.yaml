@@ -1,15 +1,66 @@
-version: "3.8"
-
 services:
   collector:
-    # todo
-  alarm:
-    # todo
+    build:
+      context: collector
+      dockerfile: Dockerfile
+    depends_on:
+      - core
+    environment:
+      - API_URL=http://core:8000
+    # volumes:
+    #   - ./collector:/app/collector
+    #   - ./sensors:/app/sensors
+    networks:
+      - monitoring
+
   core:
-    # todo
+    build:
+      context: core
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
+      - REDIS_URL=redis://cache:6379/0
+    networks:
+      - monitoring
+
   database:
-    # todo: pgsql
-  cache:
-    # todo: redis
-  prediction:
-    # todo: prediction
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=monitoring
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - monitoring
+
+  # cache:
+  #   image: redis:7-alpine
+  #   networks:
+  #     - monitoring
+
+  # predictor:
+  #   build:
+  #     context: .
+  #     dockerfile: predictor/Dockerfile
+  #   depends_on:
+  #     - core
+  #     - database
+  #   environment:
+  #     - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
+  #     - API_URL=http://core:8000
+  #   networks:
+  #     - monitoring
+
+  # Alarm сервисы запускаются отдельно, не через docker-compose
+
+volumes:
+  postgres_data:
+
+networks:
+  monitoring:
+    driver: bridge

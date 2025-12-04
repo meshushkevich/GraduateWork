@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:alpine3.22
-RUN apk add git
 ADD . /app
+ADD ../sensors ./sensors
 WORKDIR /app
 RUN uv sync
 EXPOSE 8000

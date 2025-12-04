@@ -1,7 +1,17 @@
 [project]
 name = "collector"
 version = "0.1.0"
-description = "Add your description here"
+description = "Collector service for sensor data"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "requests>=2.28.0",
+    "sensors",
+]
+
+[tool.uv.sources]
+sensors = { git = "https://github.com/meshushkevich/Sensors.git", branch = "main" }
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
