@@ -38,23 +38,23 @@ services:
     networks:
       - monitoring
 
-  # cache:
-  #   image: redis:7-alpine
-  #   networks:
-  #     - monitoring
+  cache:
+    image: redis:7-alpine
+    networks:
+      - monitoring
 
-  # predictor:
-  #   build:
-  #     context: .
-  #     dockerfile: predictor/Dockerfile
-  #   depends_on:
-  #     - core
-  #     - database
-  #   environment:
-  #     - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
-  #     - API_URL=http://core:8000
-  #   networks:
-  #     - monitoring
+  predictor:
+    build:
+      context: predictor
+      dockerfile: Dockerfile
+    depends_on:
+      - core
+      - database
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
+      - API_URL=http://core:8000
+    networks:
+      - monitoring
 
   # Alarm сервисы запускаются отдельно, не через docker-compose
 

@@ -1,17 +1,8 @@
-# Use Python 3.13 slim image
-FROM python:3.13-slim
+FROM ghcr.io/astral-sh/uv:debian-slim
+RUN apt-get update && apt-get install -y git
 
-# Set working directory
+ADD . /app
 WORKDIR /app
-
-# Install pip if not present (for slim images)
-RUN pip install --upgrade pip
-
-# Install dependencies
-RUN pip install -e ./predictor
-
-# Set PYTHONPATH
-ENV PYTHONPATH=/app
-
-# Run the predictor
-CMD ["python", "predictor/main.py"]
+RUN uv sync
+EXPOSE 8002
+CMD ["uv", "run", "python", "core/run.py"]
