@@ -80,4 +80,4 @@ api_connection_status()
 
 st.markdown("# MCU Dashboard")
 st.button("Add MCU", on_click=add_mcu)
-st.dataframe(get_mcus())
+st.dataframe(get_mcus(), hide_index=True)
