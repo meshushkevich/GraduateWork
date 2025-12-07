@@ -1,4 +1,6 @@
-from collector.utils import get_machine_fingerprint
+import os
 
-API_REFRESH_INTERVAL_MS = 5000000
+from collector_core.fingerprint import get_machine_fingerprint
+
+API_REFRESH_INTERVAL_MS = os.environ.get("API_REFRESH_INTERVAL_MS", 1000)
 FINGERPRINT = get_machine_fingerprint()

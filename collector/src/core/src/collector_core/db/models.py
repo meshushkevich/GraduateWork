@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Enum, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
-from collector.mcu import MCU
+from collector_core.mcu import MCU
 
 Base = declarative_base()
 

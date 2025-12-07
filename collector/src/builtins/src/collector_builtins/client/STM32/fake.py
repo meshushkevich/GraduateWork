@@ -1,7 +1,7 @@
 from typing import Optional
 
-from collector.client.client_base import AsyncClientBase
-from collector.mock_sensor.sensor_base import SensorBase
+from collector_core.client import AsyncClientBase
+from collector_core.sensor import SensorBase
 
 
 class FakeClient(AsyncClientBase):

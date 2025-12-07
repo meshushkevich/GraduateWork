@@ -3,11 +3,9 @@ import time
 
 import requests
 import streamlit as st
-from collector.db import create_mcu, get_mcus, init_db
-from collector.mcu import MCU
-from streamlit_autorefresh import st_autorefresh
-
-from collector import API_REFRESH_INTERVAL_MS, FINGERPRINT
+from collector_core import FINGERPRINT
+from collector_core.db import create_mcu, get_mcus, init_db
+from collector_core.mcu import MCU
 
 init_db()
 
@@ -15,9 +13,6 @@ st.set_page_config(
     page_title="Collector Dashboard",
     page_icon=":bar_chart:",
 )
-
-
-st_autorefresh(interval=API_REFRESH_INTERVAL_MS, key="api_refresh")
 
 
 def ping_api() -> tuple[bool, float]:

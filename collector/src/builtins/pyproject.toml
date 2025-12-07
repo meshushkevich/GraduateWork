@@ -1,0 +1,19 @@
+[project]
+name = "collector-builtins"
+version = "0.1.0"
+description = "TODO"
+readme = "README.md"
+authors = [
+    { name = "Maksim Shushkevich", email = "m.e.shushkevich@yandex.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "collector-core",
+]
+
+[tool.uv.sources]
+collector_core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.9.13,<0.10.0"]
+build-backend = "uv_build"

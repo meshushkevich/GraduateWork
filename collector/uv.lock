@@ -5,6 +5,7 @@ requires-python = ">=3.13"
 [manifest]
 members = [
     "collector",
+    "collector-builtins",
     "collector-core",
     "collector-ui",
 ]
@@ -119,15 +120,28 @@ name = "collector"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "collector-builtins" },
     { name = "collector-core" },
     { name = "collector-ui" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "collector-builtins", editable = "src/builtins" },
     { name = "collector-core", editable = "src/core" },
     { name = "collector-ui", editable = "src/ui" },
 ]
+
+[[package]]
+name = "collector-builtins"
+version = "0.1.0"
+source = { editable = "src/builtins" }
+dependencies = [
+    { name = "collector-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "collector-core", editable = "src/core" }]
 
 [[package]]
 name = "collector-core"

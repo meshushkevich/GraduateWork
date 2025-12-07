@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
 import numpy as np
-
-from collector.mock_sensor.sensor_base import SensorBase
+from collector_core.sensor import SensorBase
 
 
 @dataclass

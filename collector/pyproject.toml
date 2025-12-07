@@ -2,6 +2,7 @@
 members = [
     "src/ui",
     "src/core",
+    "src/builtins",
 ]
 
 [project]
@@ -13,14 +14,10 @@ requires-python = ">=3.13"
 dependencies = [
     "collector-core",
     "collector-ui",
+    "collector-builtins"
 ]
 
 [tool.uv.sources]
 collector-core = { workspace = true }
 collector-ui = { workspace = true }
-
-
-
-# [build-system]
-# requires = ["uv_build>=0.9.16,<0.10.0"]
-# build-backend = "uv_build"
+collector-builtins = { workspace = true }

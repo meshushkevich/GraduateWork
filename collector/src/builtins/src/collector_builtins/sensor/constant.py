@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 
-from collector.mock_sensor.sensor_base import SensorBase
+from collector_core.sensor import SensorBase
 
 
 @dataclass

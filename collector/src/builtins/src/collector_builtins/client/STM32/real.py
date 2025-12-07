@@ -1,25 +1,15 @@
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-
-from collector.mcu import MCU
+from collector_core.client import AsyncClientBase
 
 
-@dataclass
-class AsyncClientBase(ABC):
-    mcu: MCU
-
-    @abstractmethod
+class RealClient(AsyncClientBase):
     async def get_heartbeat(self) -> bool:
         raise NotImplementedError
 
-    @abstractmethod
     async def get_mcu_info(self) -> str:
         raise NotImplementedError
 
-    @abstractmethod
     async def get_list_of_sensors(self) -> list[str]:
         raise NotImplementedError
 
-    @abstractmethod
     async def get_sensor_data(self, sensor_name: str) -> float:
         raise NotImplementedError

@@ -1,5 +1,5 @@
-from collector.db.engine import get_engine
-from collector.db.utils import (
+from collector_core.db.engine import get_engine
+from collector_core.db.utils import (
     create_mcu,
     delete_mcu,
     get_db_session,

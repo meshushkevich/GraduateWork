@@ -1,9 +1,9 @@
 import pandas as pd
 from sqlalchemy.orm import sessionmaker
 
-from collector.db.engine import get_engine
-from collector.db.models import Base, MCU_Table
-from collector.mcu import MCU
+from collector_core.db.engine import get_engine
+from collector_core.db.models import Base, MCU_Table
+from collector_core.mcu import MCU
 
 engine = get_engine()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
