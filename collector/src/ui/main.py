@@ -1,18 +1,21 @@
 import random
+import threading
 import time
 
 import requests
 import streamlit as st
 from collector_core import FINGERPRINT
-from collector_core.db import create_mcu, get_mcus, init_db
+from collector_core.daemon import CollectorCore
 from collector_core.mcu import MCU
-
-init_db()
 
 st.set_page_config(
     page_title="Collector Dashboard",
     page_icon=":bar_chart:",
 )
+
+core = CollectorCore()
+thread = threading.Thread(target=core.main_thread)
+thread.start()
 
 
 def ping_api() -> tuple[bool, float]:
@@ -75,4 +78,5 @@ api_connection_status()
 
 st.markdown("# MCU Dashboard")
 st.button("Add MCU", on_click=add_mcu)
-st.dataframe(get_mcus(), hide_index=True)
+# st.dataframe(get_mcus(), hide_index=True)
+thread.join()

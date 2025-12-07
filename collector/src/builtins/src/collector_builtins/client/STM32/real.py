@@ -1,7 +1,7 @@
 from collector_core.client import AsyncClientBase
 
 
-class RealClient(AsyncClientBase):
+class STM32_RealClient(AsyncClientBase):
     async def get_heartbeat(self) -> bool:
         raise NotImplementedError
 

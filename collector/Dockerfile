@@ -4,5 +4,5 @@ RUN apk add git
 ADD . /app
 WORKDIR /app
 RUN uv sync
-EXPOSE 8001
-CMD ["uv", "run", "streamlit", "run", "src/ui/main.py", "--server.port", "8001"]
+EXPOSE 8002
+CMD ["uv", "run", "uvicorn", "main:app", "--port", "8002"]

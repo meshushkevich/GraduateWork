@@ -17,7 +17,7 @@ class AsyncClientBase(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_list_of_sensors(self) -> list[str]:
+    async def get_list_of_sensors_names(self) -> list[str]:
         raise NotImplementedError
 
     @abstractmethod

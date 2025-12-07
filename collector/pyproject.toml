@@ -3,6 +3,7 @@ members = [
     "src/ui",
     "src/core",
     "src/builtins",
+    "src/daemon",
 ]
 
 [project]
@@ -14,10 +15,14 @@ requires-python = ">=3.13"
 dependencies = [
     "collector-core",
     "collector-ui",
-    "collector-builtins"
+    "collector-builtins",
+    "collector-daemon",
+    "uvicorn>=0.38.0",
+    "fastapi>=0.124.0",
 ]
 
 [tool.uv.sources]
 collector-core = { workspace = true }
 collector-ui = { workspace = true }
 collector-builtins = { workspace = true }
+collector-daemon = { workspace = true }
