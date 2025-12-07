@@ -1,13 +1,12 @@
 from dataclasses import dataclass
-
-from sqlalchemy import Enum
+from enum import Enum
 
 
 @dataclass
 class MCU:
     class MCU_Type(Enum):
-        REAL = "Real"
-        FAKE = "Fake"
+        REAL = "REAL"
+        FAKE = "FAKE"
 
     class MCU_ConnectionType(Enum):
         USB = "USB"

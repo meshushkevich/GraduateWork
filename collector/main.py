@@ -1,10 +1,15 @@
+import random
 import time
 
 import requests
 import streamlit as st
+from collector.db import create_mcu, get_mcus, init_db
+from collector.mcu import MCU
 from streamlit_autorefresh import st_autorefresh
 
 from collector import API_REFRESH_INTERVAL_MS, FINGERPRINT
+
+init_db()
 
 st.set_page_config(
     page_title="Collector Dashboard",
@@ -46,9 +51,33 @@ def api_connection_status():
     st.sidebar.badge(label=FINGERPRINT, color="blue")
 
 
+@st.dialog(title="Add new MCU")
+def add_mcu():
+    options = ["Real", "Fake"]
+    selection = st.pills("MCU Type", options, selection_mode="single")
+
+    if selection == "Real":
+        st.text("Not Implemented")
+
+    if selection == "Fake":
+        mcu_name = st.text_input("MCU Name")
+        if st.button("Add"):
+            create_mcu(
+                name=mcu_name,
+                description="0xDEADBEEF",
+                type=MCU.MCU_Type.FAKE,
+                connection_type=MCU.MCU_ConnectionType.USB,
+                is_connected=True,
+                dev_id=random.randint(0, 0xFFFFFFFF),
+            )
+            st.rerun()
+
+
 st.session_state.api_connected, st.session_state.api_ping = ping_api()
 st.sidebar.title("Collector")
 api_connection_status()
 
 
-st.markdown("# Dashboard")
+st.markdown("# MCU Dashboard")
+st.button("Add MCU", on_click=add_mcu)
+st.dataframe(get_mcus())

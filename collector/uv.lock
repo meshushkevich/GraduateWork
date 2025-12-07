@@ -112,6 +112,7 @@ name = "collector"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "pandas" },
     { name = "requests" },
     { name = "sensors" },
     { name = "sqlalchemy" },
@@ -121,6 +122,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "pandas", specifier = ">=2.3.3" },
     { name = "requests", specifier = ">=2.28.0" },
     { name = "sensors", git = "https://github.com/meshushkevich/Sensors.git?branch=main" },
     { name = "sqlalchemy", specifier = ">=2.0.44" },

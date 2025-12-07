@@ -1,0 +1,5 @@
+.zed
+*.db
+.venv
+__pycache__
+*.log
