@@ -1,14 +1,20 @@
 [project]
-name = "sensors"
+name = "collector-ui"
 version = "0.1.0"
-description = "Sensor data structures and abstractions"
+description = "TODO"
 readme = "README.md"
 authors = [
     { name = "Maksim Shushkevich", email = "m.e.shushkevich@yandex.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "streamlit>=1.52.1",
+    "collector-core"
+]
+
+[tool.uv.sources]
+collector-core = { workspace = true }
 
 [build-system]
-requires = ["uv_build>=0.9.16,<0.10.0"]
+requires = ["uv_build>=0.9.13,<0.10.0"]
 build-backend = "uv_build"

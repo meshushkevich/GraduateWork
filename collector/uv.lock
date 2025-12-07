@@ -2,6 +2,13 @@ version = 1
 revision = 3
 requires-python = ">=3.13"
 
+[manifest]
+members = [
+    "collector",
+    "collector-core",
+    "collector-ui",
+]
+
 [[package]]
 name = "altair"
 version = "6.0.0"
@@ -110,7 +117,22 @@ wheels = [
 [[package]]
 name = "collector"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
+dependencies = [
+    { name = "collector-core" },
+    { name = "collector-ui" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "collector-core", editable = "src/core" },
+    { name = "collector-ui", editable = "src/ui" },
+]
+
+[[package]]
+name = "collector-core"
+version = "0.1.0"
+source = { editable = "src/core" }
 dependencies = [
     { name = "numpy" },
     { name = "pandas" },
@@ -118,8 +140,6 @@ dependencies = [
     { name = "result" },
     { name = "sensors" },
     { name = "sqlalchemy" },
-    { name = "streamlit" },
-    { name = "streamlit-autorefresh" },
 ]
 
 [package.metadata]
@@ -130,8 +150,21 @@ requires-dist = [
     { name = "result", specifier = ">=0.17.0" },
     { name = "sensors", git = "https://github.com/meshushkevich/Sensors.git?branch=main" },
     { name = "sqlalchemy", specifier = ">=2.0.44" },
+]
+
+[[package]]
+name = "collector-ui"
+version = "0.1.0"
+source = { editable = "src/ui" }
+dependencies = [
+    { name = "collector-core" },
+    { name = "streamlit" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "collector-core", editable = "src/core" },
     { name = "streamlit", specifier = ">=1.52.1" },
-    { name = "streamlit-autorefresh", specifier = ">=1.0.1" },
 ]
 
 [[package]]
@@ -725,18 +758,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/6f/ec/66ca1578587bbaaea5757a7f074d3f762fff8d782ffb4497a83c5722aa44/streamlit-1.52.1.tar.gz", hash = "sha256:b036a71866b893c97fdebaa2a2ebd21ebf2af7daea4b3abe783a57b26f55b3ca", size = 8582829, upload-time = "2025-12-05T18:55:42.006Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d0/d4/cdafd4cc940937410f465ca7a77dd34237182c2ddece624e08db959496f8/streamlit-1.52.1-py3-none-any.whl", hash = "sha256:97fee2c3421d350fd65548e45a20f506ec1b651d78f95ecacbc0c2f9f838081c", size = 9024748, upload-time = "2025-12-05T18:55:39.713Z" },
-]
-
-[[package]]
-name = "streamlit-autorefresh"
-version = "1.0.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "streamlit" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/88/8c/e48bee687408fe563652bda4a7f2f5ef85d5a527b1883513fdcb05f1e66b/streamlit-autorefresh-1.0.1.tar.gz", hash = "sha256:a89abf23f2c4e52d37be442115cd5566b41f382e3c09ff08817e17a25f50b8ed", size = 351385, upload-time = "2023-06-25T18:58:34.889Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/20/82/e378f178498f1d99a672d81df71ebe9693a106cec6a628ee52ce3288cd6d/streamlit_autorefresh-1.0.1-py3-none-any.whl", hash = "sha256:8f0a772eff9d56807d19dc422e44ef92d900bbb22b1b85de31d8d82ea7d875f1", size = 700771, upload-time = "2023-06-25T18:58:33.195Z" },
 ]
 
 [[package]]
