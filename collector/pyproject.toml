@@ -9,6 +9,7 @@ dependencies = [
     "sensors",
     "sqlalchemy>=2.0.44",
     "streamlit>=1.52.1",
+    "streamlit-autorefresh>=1.0.1",
 ]
 
 [tool.uv.sources]

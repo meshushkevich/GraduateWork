@@ -5,4 +5,4 @@ ADD . /app
 WORKDIR /app
 RUN uv sync
 EXPOSE 8001
-CMD ["uv", "run", "python", "core/run.py"]
+CMD ["uv", "run", "streamlit", "run", "main.py"]
