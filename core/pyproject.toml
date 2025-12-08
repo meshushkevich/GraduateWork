@@ -12,13 +12,9 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "psycopg2-binary>=2.9.5",
     "redis>=4.5.0",
-    "sensors"
+    "sensors",
+    "sqlalchemy>=2.0.44",
 ]
 
 [tool.uv.sources]
 sensors = { git = "https://github.com/meshushkevich/Sensors.git", branch = "main" }
-
-
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"

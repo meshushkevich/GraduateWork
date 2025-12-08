@@ -7,9 +7,6 @@ services:
       - core
     environment:
       - API_URL=http://core:8000
-    # volumes:
-    #   - ./collector:/app/collector
-    #   - ./sensors:/app/sensors
     networks:
       - monitoring
 
@@ -20,14 +17,14 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - database
+      - postgresql
     environment:
       - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
       - REDIS_URL=redis://cache:6379/0
     networks:
       - monitoring
 
-  database:
+  postgresql:
     image: postgres:15
     environment:
       - POSTGRES_USER=postgres
@@ -49,7 +46,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - core
-      - database
+      - postgresql
     environment:
       - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
       - API_URL=http://core:8000
