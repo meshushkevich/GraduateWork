@@ -17,4 +17,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-sensors = { git = "https://github.com/meshushkevich/Sensors.git", branch = "main" }
+sensors = { git = "https://github.com/meshushkevich/Sensors.git" }
