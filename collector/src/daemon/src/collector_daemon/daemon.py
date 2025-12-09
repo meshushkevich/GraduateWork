@@ -1,6 +1,6 @@
 import asyncio
 import os
-import time
+from datetime import datetime
 
 import requests
 from collector_core.client import AsyncClientBase
@@ -43,25 +43,25 @@ class CollectorDaemon:
             log_info("Starting collect loop")
             for client in self.clients:
                 for sensor_name in await client.get_list_of_sensors_names():
-                    log_info(f"GED {sensor_name} -> {client.mcu.dev_id}")
                     value = await client.get_sensor_data(sensor_name)
                     data = SensorData(
                         fingerprint=self.fingerprint,
                         mcu_dev_id=client.mcu.dev_id,
                         sensor_name=sensor_name,
                         value=value,
-                        timestamp=int(time.time()),
+                        timestamp=datetime.now(),
                     )
                     await self.queue.put(data)
-                    log_info(f"GED {sensor_name}:{data} <- {client.mcu.dev_id}")
                     await asyncio.sleep(1)
 
     async def task_send_data(self):
         while True:
             data: SensorData = await self.queue.get()
-            json = data.model_dump_json()
-            log_info(f"Sending data: {json}")
-            result = requests.post(url=f"{self.api_url}/data", json=json)
+            result = requests.post(
+                url=f"{self.api_url}/data",
+                data=data.model_dump_json(),
+                headers={"Content-Type": "application/json"},
+            )
             if result.status_code == 200:
                 log_info(f"Data sent successfully")
             else:
