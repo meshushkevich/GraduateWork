@@ -7,8 +7,6 @@ authors = [
     { name = "Maksim Shushkevich", email = "m.e.shushkevich@yandex.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
-
-[build-system]
-requires = ["uv_build>=0.9.16,<0.10.0"]
-build-backend = "uv_build"
+dependencies = [
+    "pydantic>=2.12.5",
+]
