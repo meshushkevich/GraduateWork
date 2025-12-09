@@ -15,3 +15,10 @@ async def root():
     return {
         "message": "Graduate Work Core API",
     }
+
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "ok",
+    }
