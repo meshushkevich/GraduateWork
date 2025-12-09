@@ -274,7 +274,10 @@ wheels = [
 [[package]]
 name = "sensors"
 version = "0.1.0"
-source = { git = "https://github.com/meshushkevich/Sensors.git?branch=main#27b60987889be0a9b9af6b7a505474467ba6c580" }
+source = { git = "https://github.com/meshushkevich/Sensors.git?branch=main#7a6e73f6a76547e676abf55a29870add5465ac12" }
+dependencies = [
+    { name = "pydantic" },
+]
 
 [[package]]
 name = "sqlalchemy"

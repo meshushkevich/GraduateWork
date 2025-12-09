@@ -1,8 +1,12 @@
 import asyncio
-import pprint
+import os
+import time
 
+import requests
 from collector_core.client import AsyncClientBase
 from collector_core.db import init_db
+from collector_core.fingerprint import get_machine_fingerprint
+from sensors.data import SensorData
 
 from collector_daemon.logger import log_debug, log_info
 
@@ -13,6 +17,8 @@ class CollectorDaemon:
 
     def __init__(self):
         self.clients = []
+        self.fingerprint = get_machine_fingerprint()
+        self.api_url = os.getenv("API_URL", "http://core:8000")
         init_db()
 
     def main_thread(self):
@@ -36,18 +42,27 @@ class CollectorDaemon:
         while True:
             log_info("Starting collect loop")
             for client in self.clients:
-                for sensor in await client.get_list_of_sensors_names():
-                    log_info(f"GED {sensor} -> {client.mcu.dev_id}")
-                    data = await client.get_sensor_data(sensor)
-                    await self.queue.put(
-                        {"dev_id": client.mcu.dev_id, "sensor": sensor, "data": data}
+                for sensor_name in await client.get_list_of_sensors_names():
+                    log_info(f"GED {sensor_name} -> {client.mcu.dev_id}")
+                    value = await client.get_sensor_data(sensor_name)
+                    data = SensorData(
+                        fingerprint=self.fingerprint,
+                        mcu_dev_id=client.mcu.dev_id,
+                        sensor_name=sensor_name,
+                        value=value,
+                        timestamp=int(time.time()),
                     )
-                    log_info(f"GED {sensor}:{data:.2f} <- {client.mcu.dev_id}")
+                    await self.queue.put(data)
+                    log_info(f"GED {sensor_name}:{data} <- {client.mcu.dev_id}")
                     await asyncio.sleep(1)
 
     async def task_send_data(self):
         while True:
-            data = await self.queue.get()
-            log_info("=" * 32)
-            for line in pprint.pformat(data).splitlines():
-                log_info(line)
+            data: SensorData = await self.queue.get()
+            json = data.model_dump_json()
+            log_info(f"Sending data: {json}")
+            result = requests.post(url=f"{self.api_url}/data", json=json)
+            if result.status_code == 200:
+                log_info(f"Data sent successfully")
+            else:
+                log_info(f"Failed to send data")

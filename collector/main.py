@@ -15,6 +15,8 @@ async def lifespan(app: FastAPI):
     daemon.clients.append(
         STM32_FakeClient(
             mcu=MCU(
+                name="STM32",
+                description="STM32 microcontroller",
                 connection_type=MCU.MCU_ConnectionType.USB,
                 is_connected=True,
                 dev_id=302,

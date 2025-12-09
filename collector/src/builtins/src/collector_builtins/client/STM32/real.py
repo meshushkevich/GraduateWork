@@ -5,6 +5,12 @@ class STM32_RealClient(AsyncClientBase):
     async def get_heartbeat(self) -> bool:
         raise NotImplementedError
 
+    async def get_mcu_name(self) -> str:
+        raise NotImplementedError
+
+    async def get_mcu_dev_id(self) -> int:
+        raise NotImplementedError
+
     async def get_mcu_info(self) -> str:
         raise NotImplementedError
 

@@ -13,6 +13,14 @@ class AsyncClientBase(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def get_mcu_name(self) -> str:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_mcu_dev_id(self) -> int:
+        raise NotImplementedError
+
+    @abstractmethod
     async def get_mcu_info(self) -> str:
         raise NotImplementedError
 

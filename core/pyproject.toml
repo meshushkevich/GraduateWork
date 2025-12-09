@@ -12,9 +12,9 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "psycopg2-binary>=2.9.5",
     "redis>=4.5.0",
-    "sensors",
     "sqlalchemy>=2.0.44",
+    "sensors",
 ]
 
 [tool.uv.sources]
-sensors = { git = "https://github.com/meshushkevich/Sensors.git" }
+sensors = { git = "https://github.com/meshushkevich/Sensors.git", branch = "main" }

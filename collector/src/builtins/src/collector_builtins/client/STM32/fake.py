@@ -12,6 +12,12 @@ class STM32_FakeClient(AsyncClientBase):
     async def get_heartbeat(self) -> bool:
         return True
 
+    async def get_mcu_name(self) -> str:
+        return self.mcu.name
+
+    async def get_mcu_dev_id(self) -> int:
+        return self.mcu.dev_id
+
     async def get_mcu_info(self) -> str:
         return "This is a fake MCU"
 

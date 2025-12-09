@@ -2,3 +2,4 @@
 .dockerignore
 .gitignore
 __pycache__
+uv.lock

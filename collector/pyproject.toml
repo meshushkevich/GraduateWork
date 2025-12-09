@@ -19,6 +19,8 @@ dependencies = [
     "collector-daemon",
     "uvicorn>=0.38.0",
     "fastapi>=0.124.0",
+
+    "sensors",
 ]
 
 [tool.uv.sources]
@@ -26,3 +28,4 @@ collector-core = { workspace = true }
 collector-ui = { workspace = true }
 collector-builtins = { workspace = true }
 collector-daemon = { workspace = true }
+sensors = { git = "https://github.com/meshushkevich/Sensors.git", branch = "main" }

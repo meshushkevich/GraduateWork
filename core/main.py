@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from sensors.data import SensorData
 from src.db.utils import init_db
 
 init_db()
@@ -22,3 +23,9 @@ async def health():
     return {
         "status": "ok",
     }
+
+
+@app.post("/data", response_model=SensorData)
+async def add_sensor_data(sensor_data: SensorData):
+    print(sensor_data)
+    return sensor_data
