@@ -1,0 +1,28 @@
+[tool.uv.workspace]
+members = [
+    "src/ui",
+    "src/core",
+    "src/builtins",
+    "src/daemon",
+]
+
+[project]
+name = "collector"
+version = "0.1.0"
+description = "Metaproject for collector"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "collector-core",
+    "collector-ui",
+    "collector-builtins",
+    "collector-daemon",
+    "uvicorn>=0.38.0",
+    "fastapi>=0.124.0",
+]
+
+[tool.uv.sources]
+collector-core = { workspace = true }
+collector-ui = { workspace = true }
+collector-builtins = { workspace = true }
+collector-daemon = { workspace = true }

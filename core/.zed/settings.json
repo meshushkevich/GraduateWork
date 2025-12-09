@@ -1,0 +1,4 @@
+{
+  "language_servers": ["ty", "ruff", "json-language-server"],
+  "middle_click_paste": false
+}

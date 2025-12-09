@@ -1,15 +1,82 @@
-version: "3.8"
-
 services:
   collector:
-    # todo
-  alarm:
-    # todo
+    build:
+      context: collector
+      dockerfile: Dockerfile
+    depends_on:
+      - core
+    environment:
+      - API_URL=http://core:8000
+    networks:
+      - monitoring
+
   core:
-    # todo
-  database:
-    # todo: pgsql
+    build:
+      context: core
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresql
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
+      - REDIS_URL=redis://cache:6379/0
+    networks:
+      - monitoring
+
+  postgresql:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=monitoring
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - monitoring
+
+  pgadmin:
+    image: dpage/pgadmin4:9.8
+    ports:
+      - 5050:80
+    environment:
+      # Required by pgAdmin
+      PGADMIN_DEFAULT_EMAIL: demo@example.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+
+      # Don't require the user to login
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+
+      # Don't require a "master" password after logging in
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    depends_on:
+      - postgresql
+    networks:
+      - monitoring
+
   cache:
-    # todo: redis
-  prediction:
-    # todo: prediction
+    image: redis:7-alpine
+    networks:
+      - monitoring
+
+  predictor:
+    build:
+      context: predictor
+      dockerfile: Dockerfile
+    depends_on:
+      - core
+      - postgresql
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@database:5432/monitoring
+      - API_URL=http://core:8000
+    networks:
+      - monitoring
+
+  # Alarm сервисы запускаются отдельно, не через docker-compose
+
+volumes:
+  postgres_data:
+
+networks:
+  monitoring:
+    driver: bridge
