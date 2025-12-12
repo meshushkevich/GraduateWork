@@ -63,6 +63,6 @@ class CollectorDaemon:
                 headers={"Content-Type": "application/json"},
             )
             if result.status_code == 200:
-                log_info(f"Data sent successfully")
+                log_debug("Data sent successfully")
             else:
-                log_info(f"Failed to send data")
+                log_debug("Failed to send data")

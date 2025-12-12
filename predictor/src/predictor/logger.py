@@ -1,7 +1,7 @@
-from logging import DEBUG, Formatter, StreamHandler, getLogger
+from logging import INFO, Formatter, StreamHandler, getLogger
 
 _logger = getLogger(__name__)
-_logger.setLevel(DEBUG)
+_logger.setLevel(INFO)
 
 handler = StreamHandler()
 formatter = Formatter("[%(asctime)s][%(levelname)s]: %(message)s")
